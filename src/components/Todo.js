@@ -47,66 +47,68 @@ export default function Todo() {
   };
 
   return (
-    <div className='container row'>
-      <h1 className='mt-3 text-white'>Todo App</h1>
-      <div className='col-8'>
-        <input
-          name='task'
-          type='text'
-          value={task}
-          placeholder='Write your task'
-          className='form-control'
-          onChange={(e) => setTask(e.target.value)}
-        />
+    <div className=' text-white h-fit'>
+      <h1 className='text-3xl font-bold text-center text-white mt-3'>
+        Three Things
+      </h1>
+      <div className='flex columns-2 w-full p-3 gap-3'>
+        <div className='row w-5/6 m-auto'>
+          <input
+            name='task'
+            type='text'
+            value={task}
+            placeholder='Write your task'
+            className='form-control'
+            onChange={(e) => setTask(e.target.value)}
+          />
+        </div>
+        <div className='row w-1/6 m-auto'>
+          <button className='bg-green-500 p-2 rounded-md' onClick={addTask}>
+            add
+          </button>
+        </div>
       </div>
-      <div className='col-4'>
-        <button
-          className='btn btn-primary form-control material-icons'
-          onClick={addTask}
-        >
-          add
-        </button>
-      </div>
-      <div className='badge'>
+
+      <div className='text-center'>
         {!tasks.length
-          ? `You have no tasks`
+          ? `(You have no tasks)`
           : tasks.length === 1
-          ? "You have 1 task"
+          ? "(You have 1 task)"
           : tasks.length > 1
-          ? `You have ${tasks.length} tasks`
+          ? `(You have ${tasks.length} tasks)`
           : null}
       </div>
       {tasks.map((task) => (
         <React.Fragment key={task.id}>
-          <div className='col-11'>
-            <span
-              className='form-control bg-black text-white btn mt-2 '
-              style={{
-                textAlign: "left",
-                fontWeight: "bold",
-              }}
-            >
-              {task.num}: {task.title}
-            </span>
-          </div>
-          <div className='col-1'>
-            <button
-              className='mt-2 btn btn-warning material-icons'
-              onClick={() => handleDelete(task)}
-            >
-              delete
-            </button>
+          <div className='flex columns-2 w-full p-3 gap-3'>
+            <div className='row w-5/6 m-auto'>
+              <span className='text-white'>
+                {task.num}: {task.title}
+              </span>
+            </div>
+            <div className='row w-1/6 m-auto'>
+              <button
+                className='bg-red-500 p-2 rounded-md'
+                onClick={() => handleDelete(task)}
+              >
+                delete
+              </button>
+            </div>
           </div>
         </React.Fragment>
       ))}
+      <div></div>
+
       {!tasks.length ? null : (
-        <div>
-          <button
-            className='btn btn-secondary mt-4 mb-4 text-center '
-            onClick={() => handleClear()}
-          >
-            Clear todos
-          </button>
+        <div className='flex columns-1 mb-3'>
+          <div className='row m-auto'>
+            <button
+              className='bg-red-500 p-2 rounded-md'
+              onClick={() => handleClear()}
+            >
+              Clear todos
+            </button>
+          </div>
         </div>
       )}
     </div>
