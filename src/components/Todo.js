@@ -139,7 +139,7 @@ export default function Todo() {
           : null}
       </div>
 
-      {tasks.length !== 3 ? null : (
+      {tasks.length < 2 ? null : (
         <div className='h-10 mb-16 mx-3'>
           {/* <button
             className='bg-red-500 p-3 border border-white w-full mb-10'
