@@ -83,31 +83,17 @@ export default function Todo() {
           git.shit.done
         </h1>
       </div>
-
-      {tasks.length !== 3 ? (
-        <div className='flex flex-row mb-10'>
-          <div className='basis-3/4 p-3'>
-            <input
-              name='task'
-              type='text'
-              value={task}
-              placeholder='Write your task'
-              className='form-control text-black w-full p-3'
-              onChange={(e) => setTask(e.target.value)}
-              maxlength='100'
-              onKeyDown={handleKeyDown}
-            />
-          </div>
-          <div className='basis-1/4 p-3'>
-            <button
-              className='bg-green-500 p-3 border b-black w-full'
-              onClick={addTask}
-            >
-              add
-            </button>
-          </div>
-        </div>
-      ) : null}
+      <div className='text-center mb-5 mt-1 text-sm px-5'>
+        {!tasks.length
+          ? null
+          : tasks.length === 1
+          ? "You have 1 task - gently does it"
+          : tasks.length > 1 && tasks.length < 3
+          ? `You have ${tasks.length} tasks - you could leave it at this for today`
+          : tasks.length === 3
+          ? `You have your maximum ${tasks.length} tasks for the day - now go git shit done`
+          : null}
+      </div>
 
       {tasks.map((task) => (
         <div key={task.id} className='flex flex-row p-2'>
@@ -126,20 +112,33 @@ export default function Todo() {
           </div>
         </div>
       ))}
-      <div></div>
-      <div className='text-center mb-5 mt-1 text-sm'>
-        {!tasks.length
-          ? null
-          : tasks.length === 1
-          ? "(You have 1 task)"
-          : tasks.length > 1 && tasks.length < 3
-          ? `(You have ${tasks.length} tasks)`
-          : tasks.length === 3
-          ? `(You have your maximum ${tasks.length} tasks for the day)`
-          : null}
-      </div>
 
-      {tasks.length < 2 ? null : (
+      {tasks.length !== 3 ? (
+        <div className='flex flex-row mb-10 p-2'>
+          <div className='basis-3/4 p-1'>
+            <input
+              name='task'
+              type='text'
+              value={task}
+              placeholder='Write your task'
+              className='form-control text-black w-full p-3'
+              onChange={(e) => setTask(e.target.value)}
+              maxlength='100'
+              onKeyDown={handleKeyDown}
+            />
+          </div>
+          <div className='basis-1/4 p-1'>
+            <button
+              className='bg-green-500 p-3 border b-black w-full'
+              onClick={addTask}
+            >
+              add
+            </button>
+          </div>
+        </div>
+      ) : null}
+
+      {tasks.length < 3 ? null : (
         <div className='h-10 mb-16 mx-3'>
           {/* <button
             className='bg-red-500 p-3 border border-white w-full mb-10'
