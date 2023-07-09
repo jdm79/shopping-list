@@ -112,7 +112,7 @@ export default function Todo() {
       {tasks.map((task) => (
         <div key={task.id} className='flex flex-row p-2'>
           <div className='basis-3/4 p-1'>
-            <h1 className='text-black bg-white w-full p-3 break-all'>
+            <h1 className='text-black bg-white w-full p-3 break-words'>
               {task.title}
             </h1>
           </div>
