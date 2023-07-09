@@ -28,6 +28,21 @@ export default function Todo() {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (task) {
+      const newTask = {
+        id: new Date().getTime().toString(),
+        title: task,
+      };
+      if (e.key === "Enter") {
+        // 👇 Get input value
+        setTasks([...tasks, newTask]);
+        localStorage.setItem("localTasks", JSON.stringify([...tasks, newTask]));
+        setTask("");
+      }
+    }
+  };
+
   const handleDelete = (task) => {
     const deleted = tasks.filter((t) => t.id !== task.id);
     setTasks(deleted);
@@ -41,9 +56,14 @@ export default function Todo() {
 
   return (
     <div className='text-white h-screen w-screen bg-blue-400 flex flex-col justify-between'>
-      <h1 className='text-xl font-bold text-center text-white p-5 mt-3'>
-        3Fings
-      </h1>
+      <div className='content flex py-2 m-auto gap-2'>
+        <img src={"/images/3Fings.png"} className='w-15 h-15 m-auto' />
+
+        <h1 className='text-md font-bold text-center m-auto text-white'>
+          git shit done
+        </h1>
+      </div>
+
       {tasks.length !== 3 ? (
         <div className='flex flex-row'>
           <div className='basis-3/4 p-3'>
@@ -55,6 +75,7 @@ export default function Todo() {
               className='form-control text-black w-full p-3'
               onChange={(e) => setTask(e.target.value)}
               maxlength='100'
+              onKeyDown={handleKeyDown}
             />
           </div>
           <div className='basis-1/4 p-3'>
