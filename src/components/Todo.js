@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 export default function Todo() {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
-  const [id, setId] = useState(1);
   let num = 1;
 
   useEffect(() => {
@@ -28,7 +27,6 @@ export default function Todo() {
       };
       setTasks([...tasks, newTask]);
       localStorage.setItem("localTasks", JSON.stringify([...tasks, newTask]));
-      // setId(id + 1);
       setTask("");
     }
   };
@@ -41,7 +39,6 @@ export default function Todo() {
 
   const handleClear = () => {
     setTasks([]);
-    setId(1);
     num = "";
     localStorage.removeItem("localTasks");
   };
@@ -86,7 +83,7 @@ export default function Todo() {
         <React.Fragment key={task.id}>
           <div className='flex columns-2 w-full p-3 gap-3'>
             <div className='row w-5/6 m-auto '>
-              <span className='text-white'>
+              <span className='text-white' key={task.id}>
                 {task.num}: {task.title}
               </span>
             </div>
