@@ -63,9 +63,13 @@ export default function Todo() {
           />
         </div>
         <div className='row w-1/6 m-auto'>
-          <button className='bg-green-500 p-2 rounded-md' onClick={addTask}>
-            add
-          </button>
+          {tasks.length < 3 ? (
+            <button className='bg-green-500 p-2 rounded-md' onClick={addTask}>
+              add
+            </button>
+          ) : (
+            <button className='bg-black p-2'>do some work!</button>
+          )}
         </div>
       </div>
 
@@ -75,7 +79,7 @@ export default function Todo() {
           : tasks.length === 1
           ? "(You have 1 task)"
           : tasks.length > 1
-          ? `(You have ${tasks.length} tasks)`
+          ? `(You have your maximum ${tasks.length} tasks for the day)`
           : null}
       </div>
       {tasks.map((task) => (
