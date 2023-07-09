@@ -43,13 +43,13 @@ export default function Todo() {
       <h1 className='text-xl font-bold text-center text-white p-5'>3Fings</h1>
       {tasks.length !== 3 ? (
         <div className='flex flex-row'>
-          <div className='basis-3/4 p-2'>
+          <div className='basis-3/4 p-3'>
             <input
               name='task'
               type='text'
               value={task}
               placeholder='Write your task'
-              className='form-control text-black w-full p-2'
+              className='form-control text-black w-full p-3'
               onChange={(e) => setTask(e.target.value)}
             />
           </div>
@@ -82,9 +82,9 @@ export default function Todo() {
         </div>
       ))}
       <div></div>
-      <div className='text-center'>
+      <div className='text-center mb-10'>
         {!tasks.length
-          ? `(You have no tasks)`
+          ? null
           : tasks.length === 1
           ? "(You have 1 task)"
           : tasks.length > 1 && tasks.length < 3
