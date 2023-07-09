@@ -69,7 +69,7 @@ export default function Todo() {
       </div>
 
       {tasks.length !== 3 ? (
-        <div className='flex flex-row'>
+        <div className='flex flex-row mb-10'>
           <div className='basis-3/4 p-3'>
             <input
               name='task'
