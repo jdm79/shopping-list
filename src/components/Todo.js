@@ -1,8 +1,33 @@
 import React, { useState, useEffect } from "react";
+import Modal from "react-modal";
 
 export default function Todo() {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
+  let subtitle;
+
+  const customStyles = {
+    content: {
+      top: "10%",
+      background: "white",
+      color: "red",
+    },
+  };
+
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    // subtitle.style.color = "#f00";
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   useEffect(() => {
     if (localStorage.getItem("localTasks")) {
@@ -123,14 +148,58 @@ export default function Todo() {
           : null}
       </div>
 
-      {!tasks.length ? null : (
+      {tasks.length !== 3 ? null : (
         <div className='h-10 mb-16 mx-3'>
-          <button
+          {/* <button
             className='bg-red-500 p-3 border border-white w-full mb-10'
             onClick={() => handleClear()}
           >
             clear todos
+          </button> */}
+
+          <button
+            onClick={openModal}
+            className='bg-red-500 p-3 border border-white w-full mb-10'
+          >
+            clear todos
           </button>
+          <Modal
+            isOpen={modalIsOpen}
+            onAfterOpen={afterOpenModal}
+            onRequestClose={closeModal}
+            // style={customStyles}
+            contentLabel='Example Modal'
+          >
+            <div className='text-white bg-blue-400 w-full h-full p-5'>
+              <div>
+                <h1 className='text-center text-yellow-300'>DANGER ZONE</h1>
+                <h2
+                  // ref={(_subtitle) => (subtitle = _subtitle)}
+                  className='mt-10  w-full text-center'
+                >
+                  Are you sure you want to clear all your todos?
+                </h2>
+              </div>
+              <div>
+                {" "}
+                <button
+                  className='mt-10 mx-auto bg-red-500 p-3 border w-full h-full'
+                  onClick={() => handleClear()}
+                >
+                  confirm
+                </button>
+              </div>
+              <div>
+                {" "}
+                <button
+                  className='mt-10 mx-auto bg-red-500 p-3 border w-full h-full'
+                  onClick={closeModal}
+                >
+                  cancel
+                </button>
+              </div>
+            </div>
+          </Modal>
         </div>
       )}
     </div>
