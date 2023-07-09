@@ -124,9 +124,9 @@ export default function Todo() {
       </div>
 
       {!tasks.length ? null : (
-        <div className='h-10 mb-14'>
+        <div className='h-10 mb-16 mx-2'>
           <button
-            className='bg-red-500 p-3 border w-full'
+            className='bg-red-500 p-3 border border-white w-full mb-10'
             onClick={() => handleClear()}
           >
             clear todos
