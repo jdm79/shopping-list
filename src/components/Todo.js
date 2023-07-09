@@ -110,15 +110,15 @@ export default function Todo() {
       ) : null}
 
       {tasks.map((task) => (
-        <div key={task.id} className='flex flex-row'>
-          <div className='basis-3/4 p-3'>
+        <div key={task.id} className='flex flex-row p-2'>
+          <div className='basis-3/4 p-1'>
             <h1 className='text-black bg-white w-full p-3 break-all'>
               {task.title}
             </h1>
           </div>
-          <div className='basis-1/4 p-3'>
+          <div className='basis-1/4 p-1'>
             <button
-              className='bg-red-500 p-3 border w-full h-full'
+              className=' bg-amber-400 text-black p-3 border w-full h-full'
               onClick={() => handleDelete(task)}
             >
               delete
@@ -183,7 +183,7 @@ export default function Todo() {
               <div>
                 {" "}
                 <button
-                  className='mt-10 mx-auto bg-red-500 p-3 border w-full h-full'
+                  className='mt-10 mx-auto bg-green-500 p-3 border w-full h-full'
                   onClick={closeModal}
                 >
                   cancel
