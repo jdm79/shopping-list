@@ -3,27 +3,23 @@ import React, { useState, useEffect } from "react";
 export default function Todo() {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
-  let num = 1;
 
   useEffect(() => {
     if (localStorage.getItem("localTasks")) {
       const storedList = JSON.parse(localStorage.getItem("localTasks"));
       setTasks(storedList);
-      console.log(storedList.length);
     }
   }, []);
 
   const addTask = (e) => {
     if (localStorage.getItem("localTasks")) {
       const storedList = JSON.parse(localStorage.getItem("localTasks"));
-      num = num + storedList.length;
     }
 
     if (task) {
       const newTask = {
         id: new Date().getTime().toString(),
         title: task,
-        num,
       };
       setTasks([...tasks, newTask]);
       localStorage.setItem("localTasks", JSON.stringify([...tasks, newTask]));
@@ -39,77 +35,73 @@ export default function Todo() {
 
   const handleClear = () => {
     setTasks([]);
-    num = "";
     localStorage.removeItem("localTasks");
   };
 
   return (
-    <div className=' text-white h-fit'>
-      <h1 className='text-3xl font-bold text-center text-white mt-3'>
-        Three Things
-      </h1>
-      <div className='flex columns-2 w-full p-3 gap-3'>
-        <div className='row w-5/6 m-auto'>
-          <input
-            name='task'
-            type='text'
-            value={task}
-            placeholder='Write your task'
-            className='form-control'
-            onChange={(e) => setTask(e.target.value)}
-          />
-        </div>
-        <div className='row w-1/6 m-auto'>
-          {tasks.length < 3 ? (
-            <button className='bg-green-500 p-2 rounded-md' onClick={addTask}>
+    <div className='text-white h-screen w-screen bg-purple-400 flex flex-col justify-between'>
+      <h1 className='text-xl font-bold text-center text-white p-5'>3Fings</h1>
+      {tasks.length !== 3 ? (
+        <div className='flex flex-row'>
+          <div className='basis-3/4 p-2'>
+            <input
+              name='task'
+              type='text'
+              value={task}
+              placeholder='Write your task'
+              className='form-control text-black w-full p-2'
+              onChange={(e) => setTask(e.target.value)}
+            />
+          </div>
+          <div className='basis-1/4 p-3'>
+            <button
+              className='bg-green-500 p-3 border b-black w-full'
+              onClick={addTask}
+            >
               add
             </button>
-          ) : (
-            <button className='bg-black p-2'>do some work!</button>
-          )}
+          </div>
         </div>
-      </div>
+      ) : null}
 
+      {tasks.map((task) => (
+        <div key={task.id} className='flex flex-row'>
+          <div className='basis-3/4 p-3'>
+            <h1 className='text-black bg-white w-full p-3 break-words'>
+              {task.title}
+            </h1>
+          </div>
+          <div className='basis-1/4 p-3'>
+            <button
+              className='bg-red-500 p-3 border w-full'
+              onClick={() => handleDelete(task)}
+            >
+              delete
+            </button>
+          </div>
+        </div>
+      ))}
+      <div></div>
       <div className='text-center'>
         {!tasks.length
           ? `(You have no tasks)`
           : tasks.length === 1
           ? "(You have 1 task)"
-          : tasks.length > 1
+          : tasks.length > 1 && tasks.length < 3
+          ? `(You have ${tasks.length} tasks)`
+          : tasks.length === 3
           ? `(You have your maximum ${tasks.length} tasks for the day)`
           : null}
       </div>
-      {tasks.map((task) => (
-        <React.Fragment key={task.id}>
-          <div className='flex columns-2 w-full p-3 gap-3'>
-            <div className='row w-5/6 m-auto '>
-              <span className='text-white' key={task.id}>
-                {task.num}: {task.title}
-              </span>
-            </div>
-            <div className='row w-1/6 m-auto'>
-              <button
-                className='bg-red-500 p-2 rounded-md'
-                onClick={() => handleDelete(task)}
-              >
-                delete
-              </button>
-            </div>
-          </div>
-        </React.Fragment>
-      ))}
-      <div></div>
 
       {!tasks.length ? null : (
-        <div className='flex columns-1 mb-3'>
-          <div className='row m-auto'>
-            <button
-              className='bg-red-500 p-2 rounded-md'
-              onClick={() => handleClear()}
-            >
-              Clear todos
-            </button>
-          </div>
+        <div className='h-10 mb-3'>
+          <button
+            className='bg-red-500 p-3 border w-full'
+            onClick={() => handleClear()}
+          >
+            Clear todos
+          </button>
         </div>
       )}
     </div>
