@@ -85,7 +85,7 @@ export default function Todo() {
       {tasks.map((task) => (
         <React.Fragment key={task.id}>
           <div className='flex columns-2 w-full p-3 gap-3'>
-            <div className='row w-5/6 m-auto'>
+            <div className='row w-5/6 m-auto '>
               <span className='text-white'>
                 {task.num}: {task.title}
               </span>
