@@ -40,8 +40,10 @@ export default function Todo() {
   };
 
   return (
-    <div className='text-white h-screen w-screen bg-purple-400 flex flex-col justify-between'>
-      <h1 className='text-xl font-bold text-center text-white p-5'>3Fings</h1>
+    <div className='text-white h-screen w-screen bg-blue-400 flex flex-col justify-between'>
+      <h1 className='text-xl font-bold text-center text-white p-5 mt-3'>
+        3Fings
+      </h1>
       {tasks.length !== 3 ? (
         <div className='flex flex-row'>
           <div className='basis-3/4 p-3'>
@@ -52,6 +54,7 @@ export default function Todo() {
               placeholder='Write your task'
               className='form-control text-black w-full p-3'
               onChange={(e) => setTask(e.target.value)}
+              maxlength='100'
             />
           </div>
           <div className='basis-1/4 p-3'>
@@ -68,13 +71,13 @@ export default function Todo() {
       {tasks.map((task) => (
         <div key={task.id} className='flex flex-row'>
           <div className='basis-3/4 p-3'>
-            <h1 className='text-black bg-white w-full p-3 break-words'>
+            <h1 className='text-black bg-white w-full p-3 break-all'>
               {task.title}
             </h1>
           </div>
           <div className='basis-1/4 p-3'>
             <button
-              className='bg-red-500 p-3 border w-full'
+              className='bg-red-500 p-3 border w-full h-full'
               onClick={() => handleDelete(task)}
             >
               delete
@@ -83,7 +86,7 @@ export default function Todo() {
         </div>
       ))}
       <div></div>
-      <div className='text-center mb-10'>
+      <div className='text-center mb-10 text-sm'>
         {!tasks.length
           ? null
           : tasks.length === 1

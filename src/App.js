@@ -3,7 +3,7 @@ import Todo from "./components/Todo";
 
 function App() {
   return (
-    <div className='container'>
+    <div className='container bg-purple-400'>
       <Todo />
     </div>
   );
