@@ -57,7 +57,11 @@ export default function Todo() {
   return (
     <div className='text-white h-screen w-screen bg-blue-400 flex flex-col justify-between'>
       <div className='content flex py-2 m-auto gap-2'>
-        <img src={"/images/3Fings.png"} className='w-15 h-15 m-auto' />
+        <img
+          src={"/images/3Fings.png"}
+          alt='3F logo'
+          className='w-15 h-15 m-auto'
+        />
 
         <h1 className='text-md font-bold text-center m-auto text-white'>
           git shit done
