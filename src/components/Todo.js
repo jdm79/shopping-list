@@ -4,15 +4,6 @@ import Modal from "react-modal";
 export default function Todo() {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
-  let subtitle;
-
-  const customStyles = {
-    content: {
-      top: "10%",
-      background: "white",
-      color: "red",
-    },
-  };
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
