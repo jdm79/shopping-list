@@ -14,6 +14,7 @@ export default function Todo() {
   const addTask = (e) => {
     if (localStorage.getItem("localTasks")) {
       const storedList = JSON.parse(localStorage.getItem("localTasks"));
+      console.log(storedList);
     }
 
     if (task) {
