@@ -64,7 +64,7 @@ export default function Todo() {
         />
 
         <h1 className='text-md font-bold text-center m-auto text-white'>
-          git shit done
+          git.shit.done
         </h1>
       </div>
 
@@ -111,7 +111,7 @@ export default function Todo() {
         </div>
       ))}
       <div></div>
-      <div className='text-center mb-10 text-sm'>
+      <div className='text-center mb-5 mt-1 text-sm'>
         {!tasks.length
           ? null
           : tasks.length === 1
@@ -124,12 +124,12 @@ export default function Todo() {
       </div>
 
       {!tasks.length ? null : (
-        <div className='h-10 mb-3'>
+        <div className='h-10 mb-14'>
           <button
             className='bg-red-500 p-3 border w-full'
             onClick={() => handleClear()}
           >
-            Clear todos
+            clear todos
           </button>
         </div>
       )}
