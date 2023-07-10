@@ -149,12 +149,17 @@ export default function Todo() {
 
       {/* -- CLEAR TODOS SECTION -- */}
       <div className='h-10 mb-10 mx-auto'>
-        <button
-          onClick={openModal}
-          className='bg-red-500 p-3 border rounded-lg border-white w-full mb-10'
-        >
-          clear all tasks
-        </button>
+        {tasks.length > 0 ? (
+          <button
+            onClick={openModal}
+            className='bg-red-500 p-3 border rounded-lg border-white w-full mb-10'
+          >
+            clear all tasks
+          </button>
+        ) : (
+          <div className='bg-blue-400 p-3  w-full mb-10'></div>
+        )}
+
         <Modal
           isOpen={modalIsOpen}
           onAfterOpen={afterOpenModal}
