@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
+import Button from "./Button";
+import Splash from "./Splash";
 
 export default function Todo() {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
-
+  let currentDate = new Date();
+  let year = currentDate.getFullYear();
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   function openModal() {
@@ -34,8 +37,11 @@ export default function Todo() {
     }
 
     if (task) {
+      let now = new Date();
       const newTask = {
         id: new Date().getTime().toString(),
+        date: now.toLocaleDateString(),
+        time: now.toLocaleTimeString(),
         title: task,
       };
       setTasks([...tasks, newTask]);
@@ -46,8 +52,11 @@ export default function Todo() {
 
   const handleKeyDown = (e) => {
     if (task) {
+      let now = new Date();
       const newTask = {
         id: new Date().getTime().toString(),
+        date: now.toLocaleDateString(),
+        time: now.toLocaleTimeString(),
         title: task,
       };
       if (e.key === "Enter") {
@@ -71,51 +80,36 @@ export default function Todo() {
     closeModal();
   };
 
+  // -- HERE'S WHERE THE JSX GOES --
   return (
     <div className='text-white h-screen w-screen bg-blue-400 flex flex-col justify-between'>
-      <div className='content flex py-2 m-auto gap-2'>
-        <img
-          src={"/images/3Fings.png"}
-          alt='3F logo'
-          className='w-15 h-15 m-auto'
-        />
+      <Splash />
 
-        <h1 className='text-md font-bold text-center m-auto text-white'>
-          git.shit.done
-        </h1>
-      </div>
-
-      {/* <div className='text-center mb-5 mt-1 text-sm px-5'>
-        {!tasks.length
-          ? null
-          : tasks.length === 1
-          ? "You have 1 task - gently does it"
-          : tasks.length > 1 && tasks.length < 3
-          ? `You have ${tasks.length} tasks - that's already a big responsibility`
-          : tasks.length === 3
-          ? `You have your maximum ${tasks.length} tasks for the day - now go
-          git shit done`
-          : null}
-      </div> */}
-
+      {/* -- TODO SECTION -- */}
       {tasks.map((task) => (
         <div key={task.id} className='flex flex-row p-2'>
           <div className='basis-3/4 p-1'>
-            <h1 className='text-white bg-black w-full border rounded-lg p-3 break-words h-full'>
-              {task.title}
-            </h1>
+            <div className='text-white bg-black w-full border rounded-lg pb-3 pt-1 px-3 break-words h-full'>
+              <h1 className='bg-white text-black p-3 rounded'>{task.title}</h1>
+
+              <span className='text-xs'>
+                set at: {task.time} {task.date}
+              </span>
+            </div>
           </div>
           <div className='basis-1/4 p-1'>
-            <button
-              className='bg-amber-400 text-black rounded-lg p-3 border w-full h-full'
-              onClick={() => handleDelete(task)}
-            >
-              delete
-            </button>
+            <Button
+              func={() => handleDelete(task)}
+              title='delete'
+              bgColor='amber-400'
+              textColor='black'
+              mt='0'
+            />
           </div>
         </div>
       ))}
 
+      {/* -- TODO INPUT SECTION -- */}
       {tasks.length !== 3 ? (
         <div className='flex flex-row mb-6 p-2'>
           <div className='basis-3/4 p-1'>
@@ -131,12 +125,7 @@ export default function Todo() {
             />
           </div>
           <div className='basis-1/4 p-1'>
-            <button
-              className='bg-green-500 p-3 border rounded-lg b-black w-full'
-              onClick={addTask}
-            >
-              add
-            </button>
+            <Button func={addTask} title='add' bgColor='green-500' mt='0' />
           </div>
         </div>
       ) : (
@@ -145,6 +134,7 @@ export default function Todo() {
         </div>
       )}
 
+      {/* -- LITTLE MESSAGES FROM ME SECTION -- */}
       <div className='text-center mb-10 mt-1 text-md px-5'>
         {!tasks.length
           ? "You can add up to three tasks - anything more than that is just cray cray"
@@ -158,6 +148,7 @@ export default function Todo() {
           : null}
       </div>
 
+      {/* -- CLEAR TODOS SECTION -- */}
       <div className='h-10 mb-20 mx-3'>
         <button
           onClick={openModal}
@@ -172,36 +163,35 @@ export default function Todo() {
           // style={customStyles}
           contentLabel='Example Modal'
         >
+          {/* -- CONFIRMATION OF CLEARING OF TODOS SECTION -- */}
           <div className='text-white bg-blue-400 w-full h-full p-5'>
             <div>
               <h1 className='text-center text-yellow-300'>DANGER ZONE</h1>
-              <h2
-                // ref={(_subtitle) => (subtitle = _subtitle)}
-                className='mt-10  w-full text-center'
-              >
+              <h2 className='mt-10 w-full text-center'>
                 Are you sure you want to clear all your todos?
               </h2>
             </div>
             <div>
-              {" "}
-              <button
-                className='mt-10 mx-auto bg-red-500 p-3 border rounded-lg w-full h-full'
-                onClick={() => handleClear()}
-              >
-                confirm
-              </button>
+              <Button
+                func={handleClear}
+                title='confirm'
+                bgColor='red-500'
+                mt='10'
+              />
             </div>
             <div>
-              {" "}
-              <button
-                className='mt-10 mx-auto bg-green-500 p-3 border rounded-lg w-full h-full'
-                onClick={closeModal}
-              >
-                cancel
-              </button>
+              <Button
+                func={closeModal}
+                title='cancel'
+                bgColor='green-500'
+                mt='10'
+              />
             </div>
           </div>
         </Modal>
+      </div>
+      <div className='bg-blue-400 text-white text-xs text-center w-full p-2 mt-16'>
+        3Fings © {year} James Malvern
       </div>
     </div>
   );
