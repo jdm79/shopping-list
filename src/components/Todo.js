@@ -145,7 +145,7 @@ export default function Todo() {
         </div>
       )}
 
-      <div className='text-center mb-10 mt-1 text-sm px-5'>
+      <div className='text-center mb-10 mt-1 text-md px-5'>
         {!tasks.length
           ? "You can add up to three tasks - anything more than that is just cray cray"
           : tasks.length === 1
@@ -158,7 +158,7 @@ export default function Todo() {
           : null}
       </div>
 
-      <div className='h-10 mb-16 mx-3'>
+      <div className='h-10 mb-20 mx-3'>
         <button
           onClick={openModal}
           className='bg-red-500 p-3 border rounded-lg border-white w-full mb-10'
