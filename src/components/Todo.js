@@ -68,6 +68,7 @@ export default function Todo() {
   const handleClear = () => {
     setTasks([]);
     localStorage.removeItem("localTasks");
+    closeModal();
   };
 
   return (
@@ -89,22 +90,20 @@ export default function Todo() {
           : tasks.length === 1
           ? "You have 1 task - gently does it"
           : tasks.length > 1 && tasks.length < 3
-          ? `You have ${tasks.length} tasks - you could leave it at this for today`
-          : tasks.length === 3
-          ? `You have your maximum ${tasks.length} tasks for the day - now go git shit done`
+          ? `You have ${tasks.length} tasks - that's already a big responsibility`
           : null}
       </div>
 
       {tasks.map((task) => (
         <div key={task.id} className='flex flex-row p-2'>
           <div className='basis-3/4 p-1'>
-            <h1 className='text-black bg-white w-full p-3 break-words'>
+            <h1 className='text-white bg-black w-full border p-3 break-words h-full'>
               {task.title}
             </h1>
           </div>
           <div className='basis-1/4 p-1'>
             <button
-              className=' bg-amber-400 text-black p-3 border w-full h-full'
+              className='bg-amber-400 text-black p-3 border w-full h-full'
               onClick={() => handleDelete(task)}
             >
               delete
@@ -136,62 +135,69 @@ export default function Todo() {
             </button>
           </div>
         </div>
-      ) : null}
+      ) : (
+        <div className='flex flex-row mb-10 p-2'>
+          <div className='basis w-full p-1'>
+            <button className='bg-blue-400 p-3 text-white w-full'>
+              You have your maximum {tasks.length} tasks for the day - now go
+              git shit done
+            </button>
+          </div>
+        </div>
+      )}
 
-      {tasks.length < 3 ? null : (
-        <div className='h-10 mb-16 mx-3'>
-          {/* <button
+      <div className='h-10 mb-16 mx-3'>
+        {/* <button
             className='bg-red-500 p-3 border border-white w-full mb-10'
             onClick={() => handleClear()}
           >
             clear todos
           </button> */}
 
-          <button
-            onClick={openModal}
-            className='bg-red-500 p-3 border border-white w-full mb-10'
-          >
-            clear todos
-          </button>
-          <Modal
-            isOpen={modalIsOpen}
-            onAfterOpen={afterOpenModal}
-            onRequestClose={closeModal}
-            // style={customStyles}
-            contentLabel='Example Modal'
-          >
-            <div className='text-white bg-blue-400 w-full h-full p-5'>
-              <div>
-                <h1 className='text-center text-yellow-300'>DANGER ZONE</h1>
-                <h2
-                  // ref={(_subtitle) => (subtitle = _subtitle)}
-                  className='mt-10  w-full text-center'
-                >
-                  Are you sure you want to clear all your todos?
-                </h2>
-              </div>
-              <div>
-                {" "}
-                <button
-                  className='mt-10 mx-auto bg-red-500 p-3 border w-full h-full'
-                  onClick={() => handleClear()}
-                >
-                  confirm
-                </button>
-              </div>
-              <div>
-                {" "}
-                <button
-                  className='mt-10 mx-auto bg-green-500 p-3 border w-full h-full'
-                  onClick={closeModal}
-                >
-                  cancel
-                </button>
-              </div>
+        <button
+          onClick={openModal}
+          className='bg-red-500 p-3 border border-white w-full mb-10'
+        >
+          clear todos
+        </button>
+        <Modal
+          isOpen={modalIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModal}
+          // style={customStyles}
+          contentLabel='Example Modal'
+        >
+          <div className='text-white bg-blue-400 w-full h-full p-5'>
+            <div>
+              <h1 className='text-center text-yellow-300'>DANGER ZONE</h1>
+              <h2
+                // ref={(_subtitle) => (subtitle = _subtitle)}
+                className='mt-10  w-full text-center'
+              >
+                Are you sure you want to clear all your todos?
+              </h2>
             </div>
-          </Modal>
-        </div>
-      )}
+            <div>
+              {" "}
+              <button
+                className='mt-10 mx-auto bg-red-500 p-3 border w-full h-full'
+                onClick={() => handleClear()}
+              >
+                confirm
+              </button>
+            </div>
+            <div>
+              {" "}
+              <button
+                className='mt-10 mx-auto bg-green-500 p-3 border w-full h-full'
+                onClick={closeModal}
+              >
+                cancel
+              </button>
+            </div>
+          </div>
+        </Modal>
+      </div>
     </div>
   );
 }
