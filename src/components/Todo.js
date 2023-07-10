@@ -98,13 +98,12 @@ export default function Todo() {
             </div>
           </div>
           <div className='basis-1/4 p-1'>
-            <Button
-              func={() => handleDelete(task)}
-              title='delete'
-              bgColor='amber-400'
-              textColor='black'
-              mt='0'
-            />
+            <button
+              className='bg-amber-400 text-black rounded-lg p-3 border w-full h-full'
+              onClick={() => handleDelete(task)}
+            >
+              delete
+            </button>
           </div>
         </div>
       ))}
@@ -172,20 +171,20 @@ export default function Todo() {
               </h2>
             </div>
             <div>
-              <Button
-                func={handleClear}
-                title='confirm'
-                bgColor='red-500'
-                mt='10'
-              />
+              <button
+                className='mt-10 mx-auto bg-red-500 p-3 border rounded-lg w-full h-full'
+                onClick={() => handleClear()}
+              >
+                confirm
+              </button>
             </div>
             <div>
-              <Button
-                func={closeModal}
-                title='cancel'
-                bgColor='green-500'
-                mt='10'
-              />
+              <button
+                className='mt-10 mx-auto bg-green-500 p-3 border rounded-lg w-full h-full'
+                onClick={closeModal}
+              >
+                cancel
+              </button>
             </div>
           </div>
         </Modal>
