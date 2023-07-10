@@ -93,7 +93,7 @@ export default function Todo() {
               <h1 className='bg-white text-black p-3 rounded'>{task.title}</h1>
 
               <span className='text-xs'>
-                set at: {task.time} {task.date}
+                set at {task.time} {task.date}
               </span>
             </div>
           </div>
@@ -116,8 +116,8 @@ export default function Todo() {
               name='task'
               type='text'
               value={task}
-              placeholder='Write your task'
-              className='form-control text-black w-full p-3 rounded-lg border-black border-1'
+              placeholder='Write your task here'
+              className='form-control text-black w-full p-3 rounded-lg border-black border-2'
               onChange={(e) => setTask(e.target.value)}
               maxlength='100'
               onKeyDown={handleKeyDown}
@@ -134,26 +134,26 @@ export default function Todo() {
       )}
 
       {/* -- LITTLE MESSAGES FROM ME SECTION -- */}
-      <div className='text-center mb-10 mt-1 text-md px-5'>
+      <div className='text-center mb-10 mt-1 text-xl px-5'>
         {!tasks.length
-          ? "You can add up to three tasks - anything more than that is just cray cray"
+          ? "you can add up to three tasks - anything more than that is just cray cray"
           : tasks.length === 1
-          ? "You have added 1 task to the list - just add two more and we can get out of here"
+          ? "you have added 1 task to the list - just add two more and we can get out of here"
           : tasks.length > 1 && tasks.length < 3
-          ? `Nice. You have ${tasks.length} tasks - that's already a big responsibility though, btw`
+          ? `nice. you have ${tasks.length} tasks - that's already a big responsibility though, btw`
           : tasks.length === 3
-          ? `Great news! You now have your maximum ${tasks.length} tasks for the day - go
+          ? `great news! you now have your maximum ${tasks.length} tasks for the day - go
           git shit done`
           : null}
       </div>
 
       {/* -- CLEAR TODOS SECTION -- */}
-      <div className='h-10 mb-20 mx-3'>
+      <div className='h-10 mb-10 mx-auto'>
         <button
           onClick={openModal}
           className='bg-red-500 p-3 border rounded-lg border-white w-full mb-10'
         >
-          clear todos
+          clear all tasks
         </button>
         <Modal
           isOpen={modalIsOpen}
@@ -167,7 +167,7 @@ export default function Todo() {
             <div>
               <h1 className='text-center text-yellow-300'>DANGER ZONE</h1>
               <h2 className='mt-10 w-full text-center'>
-                Are you sure you want to clear all your todos?
+                are you sure you want to clear all your tasks?
               </h2>
             </div>
             <div>
@@ -189,7 +189,7 @@ export default function Todo() {
           </div>
         </Modal>
       </div>
-      <div className='bg-blue-400 text-white text-xs text-center w-full p-2 mt-16'>
+      <div className='bg-blue-400 text-white text-xs text-center w-full p-2 mt-2'>
         3Fings © {year} James Malvern
       </div>
     </div>
