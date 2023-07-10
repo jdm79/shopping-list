@@ -84,26 +84,30 @@ export default function Todo() {
           git.shit.done
         </h1>
       </div>
-      <div className='text-center mb-5 mt-1 text-sm px-5'>
+
+      {/* <div className='text-center mb-5 mt-1 text-sm px-5'>
         {!tasks.length
           ? null
           : tasks.length === 1
           ? "You have 1 task - gently does it"
           : tasks.length > 1 && tasks.length < 3
           ? `You have ${tasks.length} tasks - that's already a big responsibility`
+          : tasks.length === 3
+          ? `You have your maximum ${tasks.length} tasks for the day - now go
+          git shit done`
           : null}
-      </div>
+      </div> */}
 
       {tasks.map((task) => (
         <div key={task.id} className='flex flex-row p-2'>
           <div className='basis-3/4 p-1'>
-            <h1 className='text-white bg-black w-full border p-3 break-words h-full'>
+            <h1 className='text-white bg-black w-full border rounded-lg p-3 break-words h-full'>
               {task.title}
             </h1>
           </div>
           <div className='basis-1/4 p-1'>
             <button
-              className='bg-amber-400 text-black p-3 border w-full h-full'
+              className='bg-amber-400 text-black rounded-lg p-3 border w-full h-full'
               onClick={() => handleDelete(task)}
             >
               delete
@@ -113,14 +117,14 @@ export default function Todo() {
       ))}
 
       {tasks.length !== 3 ? (
-        <div className='flex flex-row mb-10 p-2'>
+        <div className='flex flex-row mb-6 p-2'>
           <div className='basis-3/4 p-1'>
             <input
               name='task'
               type='text'
               value={task}
               placeholder='Write your task'
-              className='form-control text-black w-full p-3'
+              className='form-control text-black w-full p-3 rounded-lg border-black border-1'
               onChange={(e) => setTask(e.target.value)}
               maxlength='100'
               onKeyDown={handleKeyDown}
@@ -128,7 +132,7 @@ export default function Todo() {
           </div>
           <div className='basis-1/4 p-1'>
             <button
-              className='bg-green-500 p-3 border b-black w-full'
+              className='bg-green-500 p-3 border rounded-lg b-black w-full'
               onClick={addTask}
             >
               add
@@ -136,27 +140,28 @@ export default function Todo() {
           </div>
         </div>
       ) : (
-        <div className='flex flex-row mb-10 p-2'>
-          <div className='basis w-full p-1'>
-            <button className='bg-blue-400 p-3 text-white w-full'>
-              You have your maximum {tasks.length} tasks for the day - now go
-              git shit done
-            </button>
-          </div>
+        <div className='flex flex-row mb-4 p-2'>
+          <div className='basis w-full p-1'></div>
         </div>
       )}
 
-      <div className='h-10 mb-16 mx-3'>
-        {/* <button
-            className='bg-red-500 p-3 border border-white w-full mb-10'
-            onClick={() => handleClear()}
-          >
-            clear todos
-          </button> */}
+      <div className='text-center mb-10 mt-1 text-sm px-5'>
+        {!tasks.length
+          ? "You can add up to three tasks - anything more than that is just cray cray"
+          : tasks.length === 1
+          ? "You have added 1 task to the list - just add two more and we can get out of here"
+          : tasks.length > 1 && tasks.length < 3
+          ? `Nice. You have ${tasks.length} tasks - that's already a big responsibility though, btw`
+          : tasks.length === 3
+          ? `Great news! You now have your maximum ${tasks.length} tasks for the day - go
+          git shit done`
+          : null}
+      </div>
 
+      <div className='h-10 mb-16 mx-3'>
         <button
           onClick={openModal}
-          className='bg-red-500 p-3 border border-white w-full mb-10'
+          className='bg-red-500 p-3 border rounded-lg border-white w-full mb-10'
         >
           clear todos
         </button>
@@ -180,7 +185,7 @@ export default function Todo() {
             <div>
               {" "}
               <button
-                className='mt-10 mx-auto bg-red-500 p-3 border w-full h-full'
+                className='mt-10 mx-auto bg-red-500 p-3 border rounded-lg w-full h-full'
                 onClick={() => handleClear()}
               >
                 confirm
@@ -189,7 +194,7 @@ export default function Todo() {
             <div>
               {" "}
               <button
-                className='mt-10 mx-auto bg-green-500 p-3 border w-full h-full'
+                className='mt-10 mx-auto bg-green-500 p-3 border rounded-lg w-full h-full'
                 onClick={closeModal}
               >
                 cancel
