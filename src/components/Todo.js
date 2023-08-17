@@ -12,6 +12,7 @@ export default function Todo() {
   let currentDate = new Date();
   let year = currentDate.getFullYear();
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  let d = currentDate.getDay();
   const timeAgo = new TimeAgo("en-US");
   console.log(timeAgo.format(Date.now(), "round-minute"));
   console.log(currentDate.toLocaleTimeString().replace(/(.*)\D\d+/, "$1"));
