@@ -61,12 +61,10 @@ export default function Todo() {
 
     if (task) {
       let now = new Date();
-      let time = now.toLocaleTimeString().replace(/(.*)\D\d+/, "$1");
 
       const newTask = {
         id: new Date().getTime().toString(),
-        date: Date.now(),
-        time: time,
+        now: Date.now(),
         title: task,
       };
       setTasks([...tasks, newTask]);
@@ -78,13 +76,10 @@ export default function Todo() {
   const handleKeyDown = (e) => {
     if (task) {
       let now = new Date();
-      let time = now.toLocaleTimeString().replace(/(.*)\D\d+/, "$1");
 
       const newTask = {
         id: new Date().getTime().toString(),
-        date: Date.now(),
-        time: time,
-
+        now: Date.now(),
         title: task,
       };
       if (e.key === "Enter") {
@@ -163,7 +158,7 @@ export default function Todo() {
 
                 <span className='text-xs'>
                   <h3 className='mt-2'>
-                    {timeAgo.format(task.date, "round-minute")}
+                    {timeAgo.format(task.now, "round-minute")}
                   </h3>
                 </span>
               </div>
