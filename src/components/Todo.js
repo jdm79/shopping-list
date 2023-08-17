@@ -4,6 +4,7 @@ import Button from "./Button";
 import Splash from "./Splash";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
+TimeAgo.addDefaultLocale(en);
 
 export default function Todo() {
   const [task, setTask] = useState("");
@@ -12,7 +13,6 @@ export default function Todo() {
   let year = currentDate.getFullYear();
   const [modalIsOpen, setIsOpen] = React.useState(false);
   let d = currentDate.getDay();
-  TimeAgo.addDefaultLocale(en);
   const timeAgo = new TimeAgo("en-US");
 
   const weekday = [
