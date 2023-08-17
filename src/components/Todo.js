@@ -9,6 +9,19 @@ export default function Todo() {
   let currentDate = new Date();
   let year = currentDate.getFullYear();
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  let d = currentDate.getDay();
+
+  const weekday = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  let day = weekday[d];
 
   function openModal() {
     setIsOpen(true);
@@ -38,10 +51,12 @@ export default function Todo() {
 
     if (task) {
       let now = new Date();
+      let time = now.toLocaleTimeString().replace(/(.*)\D\d+/, "$1");
+
       const newTask = {
         id: new Date().getTime().toString(),
         date: now.toLocaleDateString(),
-        time: now.toLocaleTimeString(),
+        time: time,
         title: task,
       };
       setTasks([...tasks, newTask]);
@@ -53,10 +68,13 @@ export default function Todo() {
   const handleKeyDown = (e) => {
     if (task) {
       let now = new Date();
+      let time = now.toLocaleTimeString().replace(/(.*)\D\d+/, "$1");
+
       const newTask = {
         id: new Date().getTime().toString(),
         date: now.toLocaleDateString(),
-        time: now.toLocaleTimeString(),
+        time: time,
+
         title: task,
       };
       if (e.key === "Enter") {
@@ -83,11 +101,44 @@ export default function Todo() {
   // -- HERE'S WHERE THE JSX GOES --
   return (
     <div className='text-white h-screen w-screen bg-blue-400 flex flex-col justify-between'>
+      <div className='text-center mb-10 text-md px-5 font-bold border-b md:mt-2 md:rounded-lg bg-black w-full md:w-fit mx-auto  p-1'>
+        <div className='text-center font-bold text-yellow-300 bg-black w-full md:w-fit mx-auto p-1 lowercase'>
+          {day}
+        </div>
+        {!tasks.length ? (
+          <h2 className='text-yellow-300'>
+            tasks:{" "}
+            <span className='text-white'>{tasks.length} - choose 3 tasks</span>
+          </h2>
+        ) : tasks.length === 1 ? (
+          <h2 className='text-yellow-300'>
+            tasks:{" "}
+            <span className='text-white'>
+              {tasks.length} - v nice. now think of two more things you can do
+            </span>
+          </h2>
+        ) : tasks.length > 1 && tasks.length < 3 ? (
+          <h2 className='text-yellow-300'>
+            tasks:{" "}
+            <span className='text-white'>
+              {tasks.length} - add one more and we can go!
+            </span>
+          </h2>
+        ) : tasks.length === 3 ? (
+          <h2 className='text-yellow-300'>
+            tasks:{" "}
+            <span className='text-white'>
+              {tasks.length} - that's your fill. go do it
+            </span>
+          </h2>
+        ) : null}
+      </div>
+
       <Splash />
 
       {/* -- TODO SECTION -- */}
       {tasks.map((task) => (
-        <div key={task.id} className='flex flex-row p-2'>
+        <div key={task.id} className='flex flex-row '>
           <div className='basis-3/4 p-1'>
             <div className='text-white bg-black w-full border rounded-lg pb-3 pt-1 px-3 break-words h-full'>
               <h1 className='bg-white text-black p-3 rounded'>{task.title}</h1>
@@ -134,7 +185,7 @@ export default function Todo() {
       )}
 
       {/* -- LITTLE MESSAGES FROM ME SECTION -- */}
-      <div className='text-center mb-10 mt-1 text-xl px-5'>
+      {/* <div className='text-center mb-10 mt-1 text-md px-5 text-white bg-black w-full border-b  p-1'>
         {!tasks.length
           ? "you can add up to three tasks - anything more than that is just cray cray"
           : tasks.length === 1
@@ -145,7 +196,7 @@ export default function Todo() {
           ? `great news! you now have your maximum ${tasks.length} tasks for the day - go
           git shit done`
           : null}
-      </div>
+      </div> */}
 
       {/* -- CLEAR TODOS SECTION -- */}
       <div className='h-10 mb-10 mx-auto'>
