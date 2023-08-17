@@ -29,23 +29,13 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <p style="text-align: center">
-      <button onclick="handlerWrapper()" classname="border-2 border-black">
+      <button onclick="deleteItems()" className="border-2 border-black">
         Tap here, then refresh page to update to new version!
       </button>
     </p>
     <script>
       function deleteItems() {
         localStorage.clear();
-      }
-
-      function handlerWrapper() {
-        if (disable) {
-          console.log("button is disabled");
-          return;
-        }
-        yourActualHandler(e);
-        localStorage.setItem("disable", true);
-        location.reload();
       }
     </script>
 
