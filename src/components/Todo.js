@@ -14,6 +14,9 @@ export default function Todo() {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   let d = currentDate.getDay();
   const timeAgo = new TimeAgo("en-US");
+  const substring = "/";
+  console.log(timeAgo.format(Date.now(), "round-minute"));
+  console.log(currentDate.toLocaleTimeString().replace(/(.*)\D\d+/, "$1"));
 
   const weekday = [
     "Sunday",
@@ -72,12 +75,12 @@ export default function Todo() {
   const handleKeyDown = (e) => {
     if (task) {
       let now = new Date();
-      // let time = now.toLocaleTimeString().replace(/(.*)\D\d+/, "$1");
+      let time = now.toLocaleTimeString().replace(/(.*)\D\d+/, "$1");
 
       const newTask = {
         id: new Date().getTime().toString(),
         date: Date.now(),
-        time: now,
+        time: time,
 
         title: task,
       };
@@ -152,13 +155,13 @@ export default function Todo() {
             <div className='text-white bg-black w-full border rounded-lg pb-3 pt-1 px-3 break-words h-full'>
               <h1 className='bg-white text-black p-3 rounded'>{task.title}</h1>
 
-              <span className='text-xs'>
-                {typeof task.date !== String ? (
+              {/* <span className='text-xs'>
+                {task.date ? (
                   <h3 className='mt-2'>
                     {timeAgo.format(task.date, "round-minute")}
                   </h3>
                 ) : null}
-              </span>
+              </span> */}
             </div>
           </div>
           <div className='basis-1/4 p-1'>
