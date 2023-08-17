@@ -60,8 +60,6 @@ export default function Todo() {
     }
 
     if (task) {
-      let now = new Date();
-
       const newTask = {
         id: new Date().getTime().toString(),
         now: Date.now(),
@@ -75,8 +73,6 @@ export default function Todo() {
 
   const handleKeyDown = (e) => {
     if (task) {
-      let now = new Date();
-
       const newTask = {
         id: new Date().getTime().toString(),
         now: Date.now(),
