@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import Button from "./Button";
 import Splash from "./Splash";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
 
 export default function Todo() {
   const [task, setTask] = useState("");
@@ -10,6 +12,8 @@ export default function Todo() {
   let year = currentDate.getFullYear();
   const [modalIsOpen, setIsOpen] = React.useState(false);
   let d = currentDate.getDay();
+  TimeAgo.addDefaultLocale(en);
+  const timeAgo = new TimeAgo("en-US");
 
   const weekday = [
     "Sunday",
@@ -55,7 +59,7 @@ export default function Todo() {
 
       const newTask = {
         id: new Date().getTime().toString(),
-        date: now.toLocaleDateString(),
+        date: Date.now(),
         time: time,
         title: task,
       };
@@ -72,8 +76,8 @@ export default function Todo() {
 
       const newTask = {
         id: new Date().getTime().toString(),
-        date: now.toLocaleDateString(),
-        time: time,
+        date: Date.now(),
+        time: now,
 
         title: task,
       };
@@ -100,37 +104,42 @@ export default function Todo() {
 
   // -- HERE'S WHERE THE JSX GOES --
   return (
-    <div className='text-white h-screen w-screen bg-blue-400 flex flex-col justify-between'>
+    <div className='text-white h-screen w-screen bg-blue-400 flex flex-col justify-between '>
       <div className='text-center mb-10 text-md px-5 font-bold border-b md:mt-2 md:rounded-lg bg-black w-full md:w-fit mx-auto  p-1'>
-        <div className='text-center font-bold text-yellow-300 bg-black w-full md:w-fit mx-auto p-1 lowercase'>
+        <div className='text-center font-bold text-yellow-300 bg-black w-full md:w-fit mx-auto lowercase'>
           {day}
         </div>
         {!tasks.length ? (
-          <h2 className='text-yellow-300'>
-            tasks:{" "}
-            <span className='text-white'>{tasks.length} - choose 3 tasks</span>
-          </h2>
+          <div>
+            <h2 className='text-yellow-300'>
+              tasks: <span className='text-white'>{tasks.length}</span>
+            </h2>
+            <h2 className='text-yellow-300'> choose 3 tasks</h2>
+          </div>
         ) : tasks.length === 1 ? (
-          <h2 className='text-yellow-300'>
-            tasks:{" "}
-            <span className='text-white'>
-              {tasks.length} - v nice. now think of two more things you can do
-            </span>
-          </h2>
+          <div>
+            <h2 className='text-yellow-300'>
+              tasks: <span className='text-white'>{tasks.length}</span>
+            </h2>
+            <h2 className='text-yellow-300'>
+              {" "}
+              nice. now think of two more things you can do
+            </h2>
+          </div>
         ) : tasks.length > 1 && tasks.length < 3 ? (
-          <h2 className='text-yellow-300'>
-            tasks:{" "}
-            <span className='text-white'>
-              {tasks.length} - add one more and we can go!
-            </span>
-          </h2>
+          <div>
+            <h2 className='text-yellow-300'>
+              tasks: <span className='text-white'>{tasks.length}</span>
+            </h2>
+            <h2 className='text-yellow-300'>add one more and we can go!</h2>
+          </div>
         ) : tasks.length === 3 ? (
-          <h2 className='text-yellow-300'>
-            tasks:{" "}
-            <span className='text-white'>
-              {tasks.length} - that's your fill. go do it
-            </span>
-          </h2>
+          <div>
+            <h2 className='text-yellow-300'>
+              tasks: <span className='text-white'>{tasks.length}</span>
+            </h2>
+            <h2 className='text-yellow-300'>that's your fill. go do it</h2>
+          </div>
         ) : null}
       </div>
 
@@ -144,7 +153,11 @@ export default function Todo() {
               <h1 className='bg-white text-black p-3 rounded'>{task.title}</h1>
 
               <span className='text-xs'>
-                set at {task.time} {task.date}
+                {typeof task.date !== String ? (
+                  <h3 className='mt-2'>
+                    {timeAgo.format(task.date, "round-minute")}
+                  </h3>
+                ) : null}
               </span>
             </div>
           </div>
@@ -183,20 +196,6 @@ export default function Todo() {
           <div className='basis w-full p-1'></div>
         </div>
       )}
-
-      {/* -- LITTLE MESSAGES FROM ME SECTION -- */}
-      {/* <div className='text-center mb-10 mt-1 text-md px-5 text-white bg-black w-full border-b  p-1'>
-        {!tasks.length
-          ? "you can add up to three tasks - anything more than that is just cray cray"
-          : tasks.length === 1
-          ? "you have added 1 task to the list - just add two more and we can get out of here"
-          : tasks.length > 1 && tasks.length < 3
-          ? `nice. you have ${tasks.length} tasks - that's already a big responsibility though, btw`
-          : tasks.length === 3
-          ? `great news! you now have your maximum ${tasks.length} tasks for the day - go
-          git shit done`
-          : null}
-      </div> */}
 
       {/* -- CLEAR TODOS SECTION -- */}
       <div className='h-10 mb-10 mx-auto'>
