@@ -72,7 +72,7 @@ export default function Todo() {
   const handleKeyDown = (e) => {
     if (task) {
       let now = new Date();
-      let time = now.toLocaleTimeString().replace(/(.*)\D\d+/, "$1");
+      // let time = now.toLocaleTimeString().replace(/(.*)\D\d+/, "$1");
 
       const newTask = {
         id: new Date().getTime().toString(),
