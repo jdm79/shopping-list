@@ -14,6 +14,10 @@ export default function Todo() {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   let d = currentDate.getDay();
   const timeAgo = new TimeAgo("en-US");
+  console.log(timeAgo.format(Date.now(), "round-minute").length);
+  console.log(
+    currentDate.toLocaleTimeString().replace(/(.*)\D\d+/, "$1").length
+  );
   console.log(timeAgo.format(Date.now(), "round-minute"));
   console.log(currentDate.toLocaleTimeString().replace(/(.*)\D\d+/, "$1"));
 
@@ -148,31 +152,33 @@ export default function Todo() {
       <Splash />
 
       {/* -- TODO SECTION -- */}
-      {tasks.map((task) => (
-        <div key={task.id} className='flex flex-row '>
-          <div className='basis-3/4 p-1'>
-            <div className='text-white bg-black w-full border rounded-lg pb-3 pt-1 px-3 break-words h-full'>
-              <h1 className='bg-white text-black p-3 rounded'>{task.title}</h1>
+      {tasks.map((task) => {
+        return (
+          <div key={task.id} className='flex flex-row '>
+            <div className='basis-3/4 p-1'>
+              <div className='text-white bg-black w-full border rounded-lg pb-3 pt-1 px-3 break-words h-full'>
+                <h1 className='bg-white text-black p-3 rounded'>
+                  {task.title}
+                </h1>
 
-              {/* <span className='text-xs'>
-                {task.date ? (
+                <span className='text-xs'>
                   <h3 className='mt-2'>
                     {timeAgo.format(task.date, "round-minute")}
                   </h3>
-                ) : null}
-              </span> */}
+                </span>
+              </div>
+            </div>
+            <div className='basis-1/4 p-1'>
+              <button
+                className='bg-amber-400 text-black rounded-lg p-3 border w-full h-full'
+                onClick={() => handleDelete(task)}
+              >
+                delete
+              </button>
             </div>
           </div>
-          <div className='basis-1/4 p-1'>
-            <button
-              className='bg-amber-400 text-black rounded-lg p-3 border w-full h-full'
-              onClick={() => handleDelete(task)}
-            >
-              delete
-            </button>
-          </div>
-        </div>
-      ))}
+        );
+      })}
 
       {/* -- TODO INPUT SECTION -- */}
       {tasks.length !== 3 ? (
@@ -185,7 +191,7 @@ export default function Todo() {
               placeholder='Write your task here'
               className='form-control text-black w-full p-3 rounded-lg border-black border-2'
               onChange={(e) => setTask(e.target.value)}
-              maxlength='100'
+              maxLength='100'
               onKeyDown={handleKeyDown}
             />
           </div>
