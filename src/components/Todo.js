@@ -14,7 +14,7 @@ export default function Todo() {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   let d = currentDate.getDay();
   const timeAgo = new TimeAgo("en-US");
-  console.log(timeAgo.format(Date.now(), "round-minute").length);
+  console.log(Date.now());
   console.log(
     currentDate.toLocaleTimeString().replace(/(.*)\D\d+/, "$1").length
   );
@@ -154,7 +154,14 @@ export default function Todo() {
 
                 <span className='text-xs'>
                   <h3 className='mt-2'>
-                    {timeAgo.format(task.now, "round-minute")}
+                    {task.now ? (
+                      <span>{timeAgo.format(task.now, "round-minute")}</span>
+                    ) : null}
+                    {task.date ? (
+                      <span>
+                        Set: {task.time} {task.date}
+                      </span>
+                    ) : null}
                   </h3>
                 </span>
               </div>
@@ -243,7 +250,7 @@ export default function Todo() {
           </div>
         </Modal>
       </div>
-      <div className='bg-blue-400 text-white text-xs text-center w-full p-2 mt-2'>
+      <div className='bg-black text-white text-xs text-center w-full p-2 mt-2'>
         3Fings © {year} James Malvern
       </div>
     </div>
