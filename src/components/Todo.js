@@ -102,7 +102,7 @@ export default function Todo() {
   // -- HERE'S WHERE THE JSX GOES --
   return (
     <div className='text-white h-screen w-screen bg-blue-400 flex flex-col justify-between '>
-      <div className='text-center mb-10 text-md px-5 font-bold border-8 border-black md:border-white md:mt-2 md:rounded-lg bg-black w-full md:w-1/3 mx-auto p-1'>
+      <div className='text-center mb-1 text-md px-5 font-bold border-8 border-black md:border-white md:mt-2 md:rounded-lg bg-black w-full md:w-1/3 mx-auto p-1'>
         <div className='text-center font-bold text-yellow-300 bg-black w-full md:w-fit mx-auto lowercase'>
           day: <span className='text-white'>{day}</span>
         </div>
