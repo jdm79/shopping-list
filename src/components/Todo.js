@@ -102,16 +102,19 @@ export default function Todo() {
   // -- HERE'S WHERE THE JSX GOES --
   return (
     <div className='text-white h-screen w-screen bg-blue-400 flex flex-col justify-between '>
-      <div className='text-center mb-10 text-md px-5 font-bold border-b md:mt-2 md:rounded-lg bg-black w-full md:w-fit mx-auto  p-1'>
+      <div className='text-center mb-10 text-md px-5 font-bold border-8 border-black md:border-white md:mt-2 md:rounded-lg bg-black w-full md:w-1/3 mx-auto p-1'>
         <div className='text-center font-bold text-yellow-300 bg-black w-full md:w-fit mx-auto lowercase'>
-          {day}
+          day: <span className='text-white'>{day}</span>
         </div>
         {!tasks.length ? (
           <div>
             <h2 className='text-yellow-300'>
               tasks: <span className='text-white'>{tasks.length}</span>
             </h2>
-            <h2 className='text-yellow-300'> choose 3 tasks</h2>
+            <h2 className='text-yellow-300'>
+              {" "}
+              choose 3 tasks you really need to do asap
+            </h2>
           </div>
         ) : tasks.length === 1 ? (
           <div>
@@ -128,14 +131,18 @@ export default function Todo() {
             <h2 className='text-yellow-300'>
               tasks: <span className='text-white'>{tasks.length}</span>
             </h2>
-            <h2 className='text-yellow-300'>add one more and we can go!</h2>
+            <h2 className='text-yellow-300'>
+              add one more and we can all go home!
+            </h2>
           </div>
         ) : tasks.length === 3 ? (
           <div>
             <h2 className='text-yellow-300'>
               tasks: <span className='text-white'>{tasks.length}</span>
             </h2>
-            <h2 className='text-yellow-300'>that's your fill. go do it</h2>
+            <h2 className='text-yellow-300'>
+              that's your fill. go do your things
+            </h2>
           </div>
         ) : null}
       </div>
