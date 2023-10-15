@@ -163,27 +163,14 @@ export default function Todo() {
           <div key={task.id} className='flex flex-row mb-2'>
             <div className='basis-3/4 p-1'>
               <div className='text-white bg-black w-full border rounded-lg pb-3 pt-1 px-3 break-words h-full'>
-                <h1 className='bg-white text-black p-3 rounded'>
+                <h1 className='bg-white text-black p-1 rounded'>
                   {task.title}
                 </h1>
-
-                <span className='text-xs'>
-                  <h3 className='mt-2'>
-                    {task.now ? (
-                      <span>{timeAgo.format(task.now, "round-minute")}</span>
-                    ) : null}
-                    {task.date ? (
-                      <span>
-                        Set: {task.time} {task.date}
-                      </span>
-                    ) : null}
-                  </h3>
-                </span>
               </div>
             </div>
             <div className='basis-1/4 pr-2 py-1'>
               <button
-                className='bg-amber-300 text-black rounded-lg p-3 border border-black w-full h-full'
+                className='bg-amber-300 text-black rounded-lg border border-black w-full h-full'
                 onClick={() => handleDelete(task)}
               >
                 delete
