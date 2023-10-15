@@ -107,10 +107,27 @@ export default function Todo() {
           Today is <span className='text-yellow-300'>{day}</span>
         </div>
         <div>
-          <h2 className='text-white'>
-            there are <span className='text-yellow-300'>{tasks.length}</span>{" "}
-            items to buy
-          </h2>
+          {tasks.length > 0 ? (
+            <h2 className='text-white'>
+              {tasks.length === 1 ? (
+                <span>
+                  {" "}
+                  there is{" "}
+                  <span className='text-yellow-300'>{tasks.length}</span> item
+                  to buy
+                </span>
+              ) : (
+                <span>
+                  {" "}
+                  there are{" "}
+                  <span className='text-yellow-300'>{tasks.length}</span> items
+                  to buy
+                </span>
+              )}
+            </h2>
+          ) : (
+            <h2>Nothing more to buy</h2>
+          )}
         </div>
       </div>
 
@@ -123,14 +140,20 @@ export default function Todo() {
             type='text'
             value={task}
             placeholder='Add item to shopping list'
-            className='form-control text-black w-full p-3 rounded-lg border-black border-2'
+            className='form-control text-black w-full p-3 rounded-lg border'
             onChange={(e) => setTask(e.target.value)}
             maxLength='100'
             onKeyDown={handleKeyDown}
           />
         </div>
         <div className='basis-1/4 p-1'>
-          <Button func={addTask} title='add' bgColor='green-500' mt='0' />
+          <Button
+            func={addTask}
+            title='add'
+            bgColor='green-500'
+            border='white'
+            mt='0'
+          />
         </div>
       </div>
 
@@ -158,9 +181,9 @@ export default function Todo() {
                 </span>
               </div>
             </div>
-            <div className='basis-1/4 p-1'>
+            <div className='basis-1/4 pr-2 py-1'>
               <button
-                className='bg-red-200 text-black rounded-lg p-3 border border-black w-full h-full'
+                className='bg-amber-300 text-black rounded-lg p-3 border border-black w-full h-full'
                 onClick={() => handleDelete(task)}
               >
                 delete

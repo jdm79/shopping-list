@@ -1,9 +1,9 @@
 import React from "react";
 
-function Button({ func, title, bgColor, textColor, mt }) {
+function Button({ func, title, bgColor, textColor, mt, border }) {
   return (
     <button
-      className={`mx-auto mt-${mt} p-3 bg-${bgColor} text-${textColor} border rounded-lg w-full h-full`}
+      className={`mx-auto mt-${mt} p-3 bg-${bgColor} text-${textColor} border border-${border} rounded-lg w-full h-full`}
       onClick={func}
     >
       {title}
