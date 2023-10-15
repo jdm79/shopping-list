@@ -47,15 +47,15 @@ export default function Todo() {
   }
 
   useEffect(() => {
-    if (localStorage.getItem("localTasks")) {
-      const storedList = JSON.parse(localStorage.getItem("localTasks"));
+    if (localStorage.getItem("localItems")) {
+      const storedList = JSON.parse(localStorage.getItem("localItems"));
       setTasks(storedList);
     }
   }, []);
 
   const addTask = (e) => {
-    if (localStorage.getItem("localTasks")) {
-      const storedList = JSON.parse(localStorage.getItem("localTasks"));
+    if (localStorage.getItem("localItems")) {
+      const storedList = JSON.parse(localStorage.getItem("localItems"));
       console.log(storedList);
     }
 
@@ -66,7 +66,7 @@ export default function Todo() {
         title: task,
       };
       setTasks([...tasks, newTask]);
-      localStorage.setItem("localTasks", JSON.stringify([...tasks, newTask]));
+      localStorage.setItem("localItems", JSON.stringify([...tasks, newTask]));
       setTask("");
     }
   };
@@ -81,7 +81,7 @@ export default function Todo() {
       if (e.key === "Enter") {
         // 👇 Get input value
         setTasks([...tasks, newTask]);
-        localStorage.setItem("localTasks", JSON.stringify([...tasks, newTask]));
+        localStorage.setItem("localItems", JSON.stringify([...tasks, newTask]));
         setTask("");
       }
     }
@@ -90,12 +90,12 @@ export default function Todo() {
   const handleDelete = (task) => {
     const deleted = tasks.filter((t) => t.id !== task.id);
     setTasks(deleted);
-    localStorage.setItem("localTasks", JSON.stringify(deleted));
+    localStorage.setItem("localItems", JSON.stringify(deleted));
   };
 
   const handleClear = () => {
     setTasks([]);
-    localStorage.removeItem("localTasks");
+    localStorage.removeItem("localItems");
     closeModal();
   };
 
@@ -103,56 +103,41 @@ export default function Todo() {
   return (
     <div className='text-white h-screen w-screen bg-blue-400 flex flex-col justify-between '>
       <div className='text-center mb-1 text-md px-5 font-bold border-8 border-black md:border-white md:mt-2 md:rounded-lg bg-black w-full md:w-1/3 mx-auto p-1'>
-        <div className='text-center font-bold text-yellow-300 bg-black w-full md:w-fit mx-auto lowercase'>
-          day: <span className='text-white'>{day}</span>
+        <div className='text-center font-bold text-white bg-black w-full md:w-fit mx-auto lowercase'>
+          Today is <span className='text-yellow-300'>{day}</span>
         </div>
-        {!tasks.length ? (
-          <div>
-            <h2 className='text-yellow-300'>
-              tasks: <span className='text-white'>{tasks.length}</span>
-            </h2>
-            <h2 className='text-yellow-300'>
-              {" "}
-              choose 3 tasks you really need to do asap
-            </h2>
-          </div>
-        ) : tasks.length === 1 ? (
-          <div>
-            <h2 className='text-yellow-300'>
-              tasks: <span className='text-white'>{tasks.length}</span>
-            </h2>
-            <h2 className='text-yellow-300'>
-              {" "}
-              nice. now think of two more things you can do
-            </h2>
-          </div>
-        ) : tasks.length > 1 && tasks.length < 3 ? (
-          <div>
-            <h2 className='text-yellow-300'>
-              tasks: <span className='text-white'>{tasks.length}</span>
-            </h2>
-            <h2 className='text-yellow-300'>
-              add one more and we can all go home!
-            </h2>
-          </div>
-        ) : tasks.length === 3 ? (
-          <div>
-            <h2 className='text-yellow-300'>
-              tasks: <span className='text-white'>{tasks.length}</span>
-            </h2>
-            <h2 className='text-yellow-300'>
-              that's your fill. go do your things
-            </h2>
-          </div>
-        ) : null}
+        <div>
+          <h2 className='text-white'>
+            there are <span className='text-yellow-300'>{tasks.length}</span>{" "}
+            items to buy
+          </h2>
+        </div>
       </div>
 
       <Splash />
+      {/* -- TODO INPUT SECTION -- */}
+      <div className='flex flex-row mb-6 p-1'>
+        <div className='basis-3/4 p-1 '>
+          <input
+            name='task'
+            type='text'
+            value={task}
+            placeholder='Add item to shopping list'
+            className='form-control text-black w-full p-3 rounded-lg border-black border-2'
+            onChange={(e) => setTask(e.target.value)}
+            maxLength='100'
+            onKeyDown={handleKeyDown}
+          />
+        </div>
+        <div className='basis-1/4 p-1'>
+          <Button func={addTask} title='add' bgColor='green-500' mt='0' />
+        </div>
+      </div>
 
       {/* -- TODO SECTION -- */}
-      {tasks.map((task) => {
+      {[...tasks].reverse().map((task) => {
         return (
-          <div key={task.id} className='flex flex-row '>
+          <div key={task.id} className='flex flex-row mb-2'>
             <div className='basis-3/4 p-1'>
               <div className='text-white bg-black w-full border rounded-lg pb-3 pt-1 px-3 break-words h-full'>
                 <h1 className='bg-white text-black p-3 rounded'>
@@ -175,7 +160,7 @@ export default function Todo() {
             </div>
             <div className='basis-1/4 p-1'>
               <button
-                className='bg-amber-400 text-black rounded-lg p-3 border w-full h-full'
+                className='bg-red-200 text-black rounded-lg p-3 border border-black w-full h-full'
                 onClick={() => handleDelete(task)}
               >
                 delete
@@ -185,39 +170,33 @@ export default function Todo() {
         );
       })}
 
-      {/* -- TODO INPUT SECTION -- */}
-      {tasks.length !== 3 ? (
-        <div className='flex flex-row mb-6 p-2'>
-          <div className='basis-3/4 p-1'>
-            <input
-              name='task'
-              type='text'
-              value={task}
-              placeholder='Write your task here'
-              className='form-control text-black w-full p-3 rounded-lg border-black border-2'
-              onChange={(e) => setTask(e.target.value)}
-              maxLength='100'
-              onKeyDown={handleKeyDown}
-            />
-          </div>
-          <div className='basis-1/4 p-1'>
-            <Button func={addTask} title='add' bgColor='green-500' mt='0' />
-          </div>
+      {/* -- TODO INPUT SECTION --
+      <div className='flex flex-row mb-6 p-2'>
+        <div className='basis-3/4 p-1'>
+          <input
+            name='task'
+            type='text'
+            value={task}
+            placeholder='Write your task here'
+            className='form-control text-black w-full p-3 rounded-lg border-black border-2'
+            onChange={(e) => setTask(e.target.value)}
+            maxLength='100'
+            onKeyDown={handleKeyDown}
+          />
         </div>
-      ) : (
-        <div className='flex flex-row mb-4 p-2'>
-          <div className='basis w-full p-1'></div>
+        <div className='basis-1/4 p-1'>
+          <Button func={addTask} title='add' bgColor='green-500' mt='0' />
         </div>
-      )}
+      </div> */}
 
       {/* -- CLEAR TODOS SECTION -- */}
-      <div className='h-10 mb-10 mx-auto'>
+      <div className='h-10 mb-10 mx-auto mt-5'>
         {tasks.length > 0 ? (
           <button
             onClick={openModal}
             className='bg-red-500 p-3 border rounded-lg border-white w-full mb-10'
           >
-            clear all tasks
+            clear all items
           </button>
         ) : (
           <div className='bg-blue-400 p-3  w-full mb-10'></div>
@@ -235,7 +214,7 @@ export default function Todo() {
             <div>
               <h1 className='text-center text-yellow-300'>DANGER ZONE</h1>
               <h2 className='mt-10 w-full text-center'>
-                are you sure you want to clear all your tasks?
+                are you sure you want to clear all your items?
               </h2>
             </div>
             <div>
@@ -258,7 +237,8 @@ export default function Todo() {
         </Modal>
       </div>
       <div className='bg-black text-white text-xs text-center w-full p-2 mt-2'>
-        3Fings © {year} James Malvern
+        <span className='text-yellow-300'>git grocery things</span> © {year}{" "}
+        James Malvern
       </div>
     </div>
   );
