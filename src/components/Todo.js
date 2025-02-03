@@ -113,20 +113,20 @@ export default function Todo() {
                 <span>
                   {" "}
                   there is{" "}
-                  <span className='text-yellow-300'>{tasks.length}</span> item
-                  to buy
+                  <span className='text-yellow-300'>{tasks.length}</span> fing
+                  to do
                 </span>
               ) : (
                 <span>
                   {" "}
                   there are{" "}
-                  <span className='text-yellow-300'>{tasks.length}</span> items
-                  to buy
+                  <span className='text-yellow-300'>{tasks.length}</span> fings
+                  to do
                 </span>
               )}
             </h2>
           ) : (
-            <h2>Nothing more to buy</h2>
+            <h2>Nothing to do</h2>
           )}
         </div>
       </div>
@@ -139,7 +139,7 @@ export default function Todo() {
             name='task'
             type='text'
             value={task}
-            placeholder='Add item to shopping list'
+            placeholder='Add fing to fings list'
             className='form-control text-black w-full p-3 rounded-lg border'
             onChange={(e) => setTask(e.target.value)}
             maxLength='100'
@@ -247,8 +247,8 @@ export default function Todo() {
         </Modal>
       </div>
       <div className='bg-black text-white text-xs text-center w-full p-2 mt-2'>
-        <span className='text-yellow-300'>git grocery things</span> © {year}{" "}
-        James Malvern
+        <span className='text-yellow-300'>git fings done</span> © {year} James
+        Malvern
       </div>
     </div>
   );
